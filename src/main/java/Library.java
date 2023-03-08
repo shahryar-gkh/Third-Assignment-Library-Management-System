@@ -39,6 +39,12 @@ public class Library {
         return bookExists;
     }
 
+    public void showAllBooks(){
+        for (int i = 0; i < listOfBooks.size(); i++){
+            listOfBooks.get(i).toString();
+        }
+    }
+
     public void updateBook(){
         //TODO
     }
@@ -81,7 +87,7 @@ public class Library {
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password);
-        listOfUsers.set(listOfUsers.size()-1, newUser);
+        listOfUsers.set(listOfUsers.size(), newUser);
     }
 
     public void removeUser(String username){
@@ -144,10 +150,8 @@ public class Library {
     //librarian related functions
 
     public void addLibrarian(String librarianUsername, String librarianPassword){
-        Librarian newLibrarian = new Librarian();
-        newLibrarian.setLibrarianUsername(librarianUsername);
-        newLibrarian.setLibrarianPassword(librarianPassword);
-        listOfLibrarians.set(listOfLibrarians.size()-1, newLibrarian);
+        Librarian newLibrarian = new Librarian(librarianUsername, librarianPassword);
+        listOfLibrarians.set(listOfLibrarians.size(), newLibrarian);
     }
 
     public void removeLibrarian(String librarianUsername){

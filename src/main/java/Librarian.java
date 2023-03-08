@@ -2,6 +2,11 @@ public class Librarian {
     private String librarianUsername;
     private String librarianPassword;
 
+    public Librarian(String librarianUsername, String librarianPassword) {
+        this.librarianUsername = librarianUsername;
+        this.librarianPassword = librarianPassword;
+    }
+
     //Getters
     public String getLibrarianUsername() {
         return librarianUsername;
