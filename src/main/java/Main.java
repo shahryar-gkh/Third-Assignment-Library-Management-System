@@ -1,9 +1,7 @@
 import java.util.Scanner;
 public class Main {
     static Library lib = new Library();
-    static Librarian manager = new Librarian("manager", "IAmInCharge!");
 
-    //I can't use lib.addLibrarian to add the first librarian.
 
     /*
     * make a functional library app using oop
@@ -13,6 +11,7 @@ public class Main {
      */
 
     public static void main(String[] args) {
+        lib.addLibrarian("manager", "poop!");
         runMenu();
     }
 

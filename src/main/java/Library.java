@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Library {
-    private ArrayList<Book> listOfBooks = new ArrayList<Book>();
-    private ArrayList<Librarian> listOfLibrarians = new ArrayList<Librarian>();
-    private ArrayList<User> listOfUsers = new ArrayList<User>();
-    private HashMap<Integer, Integer> copiesLeft = new HashMap<Integer, Integer>();
+    private ArrayList<Book> listOfBooks = new ArrayList<>();
+    private ArrayList<Librarian> listOfLibrarians = new ArrayList<>();
+    private ArrayList<User> listOfUsers = new ArrayList<>();
+    private HashMap<Integer, Integer> copiesLeft = new HashMap<>();
 
     /*
     * The library should have a map of books ISBNs which is linked to the amount of book
@@ -22,26 +22,25 @@ public class Library {
 
     public void removeBook(String name){
         for (int i = 0; i < listOfBooks.size(); i++) {
-            if (name == listOfBooks.get(i).getName()) {
+            if (name.equals(listOfBooks.get(i).getName())) {
                 listOfBooks.remove(i);
             }
         }
     }
 
     public boolean searchBook(String name){
-        boolean bookExists = false;
-        for (int i = 0; i < listOfBooks.size(); i++) {
-            if (name == listOfBooks.get(i).getName()) {
-                bookExists = true;
-                System.out.println(listOfBooks.get(i).toString());
+        for (Book book : listOfBooks) {
+            if (name.equals(book.getName())) {
+                System.out.println(book);
+                return true;
             }
         }
-        return bookExists;
+        return false;
     }
 
     public void showAllBooks(){
-        for (int i = 0; i < listOfBooks.size(); i++){
-            listOfBooks.get(i).toString();
+        for (Book book : listOfBooks) {
+            System.out.println(book.toString());
         }
     }
 
@@ -50,20 +49,19 @@ public class Library {
     }
 
     public boolean doesBookExist(String name){
-        boolean exists = false;
-        for (int i = 0; i < listOfBooks.size(); i++) {
-            if (listOfBooks.get(i).getName() == name) {
-                exists = true;
+        for (Book book : listOfBooks) {
+            if (name.equals(book.getName())) {
+                return true;
             }
         }
-        return exists;
+        return false;
     }
 
     public int nameToISBN(String name) {
         int isbn = 0;
-        for (int i = 0; i < listOfBooks.size(); i++) {
-            if (listOfBooks.get(i).getName() == name) {
-                isbn = listOfBooks.get(i).getIsbn();
+        for (Book book : listOfBooks) {
+            if (book.getName().equals(name)) {
+                isbn = book.getIsbn();
             }
         }
         return isbn;
@@ -87,90 +85,86 @@ public class Library {
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password);
-        listOfUsers.set(listOfUsers.size(), newUser);
+        listOfUsers.add(newUser);
     }
 
     public void removeUser(String username){
         for (int i = 0; i < listOfUsers.size(); i++) {
-            if (username == listOfUsers.get(i).getUsername()) {
+            if (username.equals(listOfUsers.get(i).getUsername())) {
                 listOfUsers.remove(i);
             }
         }
     }
 
     public boolean searchUser(String username){
-        boolean userExists = false;
-        for (int i = 0; i < listOfUsers.size(); i++) {
-            if (username == listOfUsers.get(i).getUsername()) {
-                userExists = true;
-                System.out.println(listOfUsers.get(i).toString());
+        for (User user : listOfUsers) {
+            if (username.equals(user.getUsername())) {
+                System.out.println(user);
+                return true;
             }
         }
-        return userExists;
+        return false;
     }
 
     public void updateUserBorrowingBook(String username, String newBook){
-        for (int i = 0; i < listOfUsers.size(); i++) {
-            if (username == listOfUsers.get(i).getUsername()) {
-                listOfUsers.get(i).rentBook(newBook);
+        for (User user : listOfUsers) {
+            if (username.equals(user.getUsername())) {
+                user.rentBook(newBook);
             }
         }
     }
 
     public void updateUserReturningBook(String username, String book){
-        for (int i = 0; i < listOfUsers.size(); i++) {
-            if (username == listOfUsers.get(i).getUsername()) {
-                listOfUsers.get(i).returnBook(book);
+        for (User user : listOfUsers) {
+            if (username.equals(user.getUsername())) {
+                user.returnBook(book);
             }
         }
     }
 
     public boolean doesUserExist(String username, String password){
-        boolean exists = false;
-        for (int i = 0; i < listOfUsers.size(); i++) {
-            if (listOfUsers.get(i).getUsername() == username) {
-                if (listOfUsers.get(i).getPassword() == password) {
-                    exists = true;
+        for (User user: listOfUsers) {
+            if (user.getUsername().equals(username)) {
+                if (user.getPassword().equals(password)) {
+                    return true;
                 }
             }
         }
-        return exists;
+        return false;
     }
 
     public boolean usernameTaken(String username){
-        boolean taken = false;
-        for (int i = 0; i < listOfUsers.size(); i++) {
-            if (listOfUsers.get(i).getUsername() == username) {
-                taken = true;
+        for (User user : listOfUsers) {
+            if (user.getUsername().equals(username)) {
+                return true;
             }
         }
-        return taken;
+        return false;
     }
 
     //librarian related functions
 
     public void addLibrarian(String librarianUsername, String librarianPassword){
         Librarian newLibrarian = new Librarian(librarianUsername, librarianPassword);
-        listOfLibrarians.set(listOfLibrarians.size(), newLibrarian);
+        listOfLibrarians.add(newLibrarian);
     }
 
     public void removeLibrarian(String librarianUsername){
         for (int i = 0; i < listOfLibrarians.size(); i++) {
-            if (librarianUsername == listOfLibrarians.get(i).getLibrarianUsername()) {
+            if (librarianUsername.equals(listOfLibrarians.get(i).getLibrarianUsername())) {
                 listOfLibrarians.remove(i);
             }
         }
     }
 
     public boolean searchLibrarian(String librarianUsername){
-        boolean librarianExists = false;
-        for (int i = 0; i < listOfLibrarians.size(); i++) {
-            if (librarianUsername == listOfLibrarians.get(i).getLibrarianUsername()) {
-                librarianExists = true;
-                System.out.println(listOfLibrarians.get(i).toString());
+        for (Librarian librarian : listOfLibrarians) {
+            if (librarianUsername.equals(librarian.getLibrarianUsername())) {
+                System.out.println(librarian);
+                return true;
             }
         }
-        return librarianExists;
+        return false;
     }
 
     public void updateLibrarian(){
@@ -178,26 +172,22 @@ public class Library {
     }
 
     public boolean doesLibrarianExist(String librarianUsername, String librarianPassword){
-        boolean exists = false;
-        for (int i = 0; i < listOfLibrarians.size(); i++) {
-            if (listOfLibrarians.get(i).getLibrarianUsername() == librarianUsername) {
-                if (listOfLibrarians.get(i).getLibrarianPassword() == librarianPassword) {
-                    exists = true;
+        for (Librarian librarian : listOfLibrarians) {
+            if (librarian.getLibrarianUsername().equals(librarianUsername)) {
+                if (librarian.getLibrarianPassword().equals(librarianPassword)) {
+                    return true;
                 }
             }
         }
-        return exists;
+        return false;
     }
 
     public boolean librarianUsernameTaken(String librarianUsername){
-        boolean taken = false;
-        for (int i = 0; i < listOfLibrarians.size(); i++) {
-            if (listOfLibrarians.get(i).getLibrarianUsername() == librarianUsername) {
-                taken = true;
+        for (Librarian librarian : listOfLibrarians) {
+            if (librarian.getLibrarianUsername().equals(librarianUsername)) {
+                return true;
             }
         }
-        return taken;
+        return false;
     }
-
-
 }

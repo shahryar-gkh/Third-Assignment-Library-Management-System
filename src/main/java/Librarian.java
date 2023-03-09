@@ -26,6 +26,7 @@ public class Librarian {
         this.librarianPassword = librarianPassword;
     }
 
+    @Override
     public String toString(){
         return "Book {" +
                 "Username = '" + librarianUsername + '\'' +
