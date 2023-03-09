@@ -28,7 +28,7 @@ public class Librarian {
 
     @Override
     public String toString(){
-        return "Book {" +
+        return "Librarian {" +
                 "Username = '" + librarianUsername + '\'' +
                 ", Password = '" + librarianPassword + '\'' +
                 '}';

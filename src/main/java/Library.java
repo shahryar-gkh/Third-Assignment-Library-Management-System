@@ -16,7 +16,7 @@ public class Library {
 
     public void addBook(String name, String author, int yearOfPublish, int isbn, int numberOfCopies){
         Book newBook = new Book(name, author, yearOfPublish, isbn);
-        listOfBooks.set(listOfBooks.size()-1, newBook);
+        listOfBooks.add(newBook);
         copiesLeft.put(isbn, numberOfCopies);
     }
 
@@ -24,33 +24,31 @@ public class Library {
         for (int i = 0; i < listOfBooks.size(); i++) {
             if (name.equals(listOfBooks.get(i).getName())) {
                 listOfBooks.remove(i);
+                break;
             }
         }
     }
 
-    public boolean searchBook(String name){
+    public void searchBook(String name){
         for (Book book : listOfBooks) {
             if (name.equals(book.getName())) {
                 System.out.println(book);
-                return true;
+                break;
             }
         }
-        return false;
     }
 
     public void showAllBooks(){
         for (Book book : listOfBooks) {
-            System.out.println(book.toString());
+            if (copiesLeft.get(book.getIsbn()) != 0) {
+                System.out.println(book);
+            }
         }
-    }
-
-    public void updateBook(){
-        //TODO
     }
 
     public boolean doesBookExist(String name){
         for (Book book : listOfBooks) {
-            if (name.equals(book.getName())) {
+            if (name.equals(book.getName()) && copiesLeft.get(nameToISBN(name)) != 0 ) {
                 return true;
             }
         }
@@ -62,29 +60,28 @@ public class Library {
         for (Book book : listOfBooks) {
             if (book.getName().equals(name)) {
                 isbn = book.getIsbn();
+                break;
             }
         }
         return isbn;
     }
 
-    public void increaseBook(String name, int numberOfCopiesReturned){
+    public void increaseBook(String name){
         int isbn = nameToISBN(name);
-        int newCopies = (copiesLeft.get(isbn)) + numberOfCopiesReturned;
+        int newCopies = (copiesLeft.get(isbn)) + 1;
         copiesLeft.replace(isbn, newCopies);
     }
 
-    public void decreaseBook(String name, int numberOfCopiesBorrowed){
+    public void decreaseBook(String name){
         int isbn = nameToISBN(name);
-        int newCopies = (copiesLeft.get(isbn)) - numberOfCopiesBorrowed;
+        int newCopies = (copiesLeft.get(isbn)) - 1;
         copiesLeft.replace(isbn, newCopies);
     }
 
     //user related functions
 
     public void addUser(String username, String password){
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setPassword(password);
+        User newUser = new User(username, password);
         listOfUsers.add(newUser);
     }
 
@@ -92,24 +89,56 @@ public class Library {
         for (int i = 0; i < listOfUsers.size(); i++) {
             if (username.equals(listOfUsers.get(i).getUsername())) {
                 listOfUsers.remove(i);
+                break;
             }
         }
     }
 
-    public boolean searchUser(String username){
+    public void searchUser(String username){
         for (User user : listOfUsers) {
             if (username.equals(user.getUsername())) {
                 System.out.println(user);
-                return true;
+                break;
+            }
+        }
+    }
+
+    public void showBooksUserBorrowed(String username){
+        for (User user : listOfUsers) {
+            if (username.equals(user.getUsername())) {
+                System.out.println(user.getListOfBooksBorrowed());
+                break;
+            }
+        }
+    }
+
+    public boolean hasUserRentedBook(String username, String bookTitle) {
+        for (User user : listOfUsers) {
+            if (user.getUsername().equals(username)) {
+                for (String name : user.getListOfBooksBorrowed()) {
+                    if (name.equals(bookTitle)) {
+                        return true;
+                    }
+                }
+                break;
             }
         }
         return false;
     }
 
+    public void updateUserPassword(String username, String newPassword){
+        for (User user : listOfUsers) {
+            if (user.getUsername().equals(username)) {
+                user.setPassword(newPassword);
+                break;
+            }
+        }
+    }
     public void updateUserBorrowingBook(String username, String newBook){
         for (User user : listOfUsers) {
             if (username.equals(user.getUsername())) {
                 user.rentBook(newBook);
+                break;
             }
         }
     }
@@ -118,6 +147,7 @@ public class Library {
         for (User user : listOfUsers) {
             if (username.equals(user.getUsername())) {
                 user.returnBook(book);
+                break;
             }
         }
     }
@@ -153,22 +183,27 @@ public class Library {
         for (int i = 0; i < listOfLibrarians.size(); i++) {
             if (librarianUsername.equals(listOfLibrarians.get(i).getLibrarianUsername())) {
                 listOfLibrarians.remove(i);
+                break;
             }
         }
     }
 
-    public boolean searchLibrarian(String librarianUsername){
+    public void searchLibrarian(String librarianUsername){
         for (Librarian librarian : listOfLibrarians) {
             if (librarianUsername.equals(librarian.getLibrarianUsername())) {
                 System.out.println(librarian);
-                return true;
+                break;
             }
         }
-        return false;
     }
 
-    public void updateLibrarian(){
-        //TODO
+    public void updateLibrarianPassword(String librarianUsername, String newPassword){
+        for (Librarian librarian: listOfLibrarians) {
+            if (librarian.getLibrarianUsername().equals(librarianUsername)) {
+                librarian.setLibrarianPassword(newPassword);
+                break;
+            }
+        }
     }
 
     public boolean doesLibrarianExist(String librarianUsername, String librarianPassword){

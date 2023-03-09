@@ -3,6 +3,11 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
     private ArrayList<String> listOfBooksBorrowed = new ArrayList<String>();
 
     //Getters
@@ -23,9 +28,13 @@ public class User {
         this.password = password;
     }
 
+    public ArrayList<String> getListOfBooksBorrowed() {
+        return listOfBooksBorrowed;
+    }
+
     @Override
     public String toString(){
-        return "Book {" +
+        return "User {" +
                 "Username = '" + username + '\'' +
                 ", Password = '" + password + '\'' +
                 '}';
