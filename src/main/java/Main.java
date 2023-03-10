@@ -27,7 +27,6 @@ public class Main {
             }
         } while(userOrLibrarian != 0);
     }
-
     //Login methods
     public static void loggingInAsAUser() {
         Scanner input = new Scanner(System.in);

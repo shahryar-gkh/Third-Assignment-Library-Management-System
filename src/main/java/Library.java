@@ -6,12 +6,6 @@ public class Library {
     private ArrayList<User> listOfUsers = new ArrayList<>();
     private HashMap<Long, Integer> copiesLeft = new HashMap<>();
 
-    /*
-    * The library should have a map of books ISBNs which is linked to the amount of book
-    -> (for example: harry potter -> 4 means there are currently 4 harry potter books)
-    * The library should have a list of users and a list of librarians.
-     */
-
     //book related functions
 
     public void addBook(String name, String author, int yearOfPublish, long isbn, int numberOfCopies){
