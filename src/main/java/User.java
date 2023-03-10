@@ -8,7 +8,7 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    private ArrayList<String> listOfBooksBorrowed = new ArrayList<String>();
+    private ArrayList<String> listOfBooksBorrowed = new ArrayList<>();
 
     //Getters
     public String getUsername() {

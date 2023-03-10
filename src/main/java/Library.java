@@ -4,7 +4,7 @@ public class Library {
     private ArrayList<Book> listOfBooks = new ArrayList<>();
     private ArrayList<Librarian> listOfLibrarians = new ArrayList<>();
     private ArrayList<User> listOfUsers = new ArrayList<>();
-    private HashMap<Integer, Integer> copiesLeft = new HashMap<>();
+    private HashMap<Long, Integer> copiesLeft = new HashMap<>();
 
     /*
     * The library should have a map of books ISBNs which is linked to the amount of book
@@ -14,16 +14,18 @@ public class Library {
 
     //book related functions
 
-    public void addBook(String name, String author, int yearOfPublish, int isbn, int numberOfCopies){
+    public void addBook(String name, String author, int yearOfPublish, long isbn, int numberOfCopies){
         Book newBook = new Book(name, author, yearOfPublish, isbn);
         listOfBooks.add(newBook);
         copiesLeft.put(isbn, numberOfCopies);
     }
 
     public void removeBook(String name){
+        long isbn = nameToISBN(name);
         for (int i = 0; i < listOfBooks.size(); i++) {
             if (name.equals(listOfBooks.get(i).getName())) {
                 listOfBooks.remove(i);
+                copiesLeft.remove(isbn);
                 break;
             }
         }
@@ -46,6 +48,15 @@ public class Library {
         }
     }
 
+    public int numberOfBooksAvailable(String bookTitle) {
+        for (Book book : listOfBooks) {
+            if (book.getName().equals(bookTitle)) {
+                return copiesLeft.get(book.getIsbn());
+            }
+        }
+        return 0;
+    }
+
     public boolean doesBookExist(String name){
         for (Book book : listOfBooks) {
             if (name.equals(book.getName()) && copiesLeft.get(nameToISBN(name)) != 0 ) {
@@ -55,8 +66,8 @@ public class Library {
         return false;
     }
 
-    public int nameToISBN(String name) {
-        int isbn = 0;
+    public long nameToISBN(String name) {
+        long isbn = 0;
         for (Book book : listOfBooks) {
             if (book.getName().equals(name)) {
                 isbn = book.getIsbn();
@@ -67,13 +78,13 @@ public class Library {
     }
 
     public void increaseBook(String name){
-        int isbn = nameToISBN(name);
+        long isbn = nameToISBN(name);
         int newCopies = (copiesLeft.get(isbn)) + 1;
         copiesLeft.replace(isbn, newCopies);
     }
 
     public void decreaseBook(String name){
-        int isbn = nameToISBN(name);
+        long isbn = nameToISBN(name);
         int newCopies = (copiesLeft.get(isbn)) - 1;
         copiesLeft.replace(isbn, newCopies);
     }

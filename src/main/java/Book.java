@@ -2,9 +2,9 @@ public class Book {
     private String name;
     private String author;
     private int yearOfPublish;
-    private int isbn;
+    private long isbn;
 
-    public Book(String name, String author, int yearOfPublish, int isbn) {
+    public Book(String name, String author, int yearOfPublish, long isbn) {
         this.name = name;
         this.author = author;
         this.yearOfPublish = yearOfPublish;
@@ -24,7 +24,7 @@ public class Book {
         return yearOfPublish;
     }
 
-    public int getIsbn() {
+    public long getIsbn() {
         return isbn;
     }
 
@@ -41,7 +41,7 @@ public class Book {
         this.yearOfPublish = yearOfPublish;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
 
